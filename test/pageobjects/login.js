@@ -3,6 +3,7 @@ import PageUrl from './base.js';
 
 
 class LoginPage extends PageUrl {
+    
     get loginBtn () {
         return $('//span[contains(text(),"Login")]')
     }
@@ -22,6 +23,10 @@ class LoginPage extends PageUrl {
     get continueBtn () {
         return $('//button[@data-action-button-primary="true"]')
     }
+
+    get wrongInfo () {
+        return $('//span[@id="error-element-password"]')
+    }
     
     async buttonLogin () {
         await this.loginBtn.click();
@@ -29,12 +34,21 @@ class LoginPage extends PageUrl {
     }
 
 
-    async loginInfo () {
-        await this.loginEmail.setValue('charles.ericson5922@stu.mtec.edu');
-        await this.loginPassword.setValue('Welcome123');
+    async loginInfo (email, password) {
+        await this.loginEmail.setValue(email);
+        await this.loginPassword.setValue(password);
         await this.continueBtn.click();
         await expect(this.legionName).toBeExisting;
     }
+
+    async errorMessage (email, password) {
+        await this.loginEmail.setValue(email);
+        await this.loginPassword.setValue(password);
+        await this.continueBtn.click();
+        await expect(this.wrongInfo).toBeExisting;
+    }
+
+
 
 
     mainPage () {

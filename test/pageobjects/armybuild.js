@@ -1,24 +1,9 @@
-import basePage from './base.js'
-import Login from './login.js'
 import { $ } from '@wdio/globals'
+import PageUrl from './base.js';
 
-export default new Armybuild();
 
 
-class Armybuild {
-
-    get rebels () {
-        return $('//*[text()="Rebel"]')
-    }
-
-    get rebelsHome () {
-        return $('//img[@alt="rebels"]')
-    }
-
-    async rebelsPage () {
-        await this.rebels.click();
-        await expect(this.rebelsHome).toBeExisting;
-    }
+class buildArmy extends PageUrl {
 
     get clearList () {
         return $('//*[text()="Clear List"]');
@@ -64,5 +49,26 @@ class Armybuild {
         return $('//*[text()="Save List"]')
     }
 
+    async rebelsPage () {
+        await this.rebels.click();
+        await expect(this.rebelsHome).toBeExisting;
+    }
+
+    async rebelArmy () {
+        await this.clearList.click()
+        await this.commander.click()
+        await this.hanSolo.click()
+        await this.operative.click()
+        await this.lukeSkywalker.click()
+        await this.corps.click()
+        await this.fleetTroopers.click()
+        await this.rebelTroopers.click()
+        await this.rebelVeterans.click()
+        await this.armyTitle.setValue('Rebel Army')
+        await this.saveList.click()
+    }
+
 
 }
+
+export default new buildArmy();
